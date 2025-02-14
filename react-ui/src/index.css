@@ -1,1 +1,12 @@
 @import "tailwindcss";
+
+.navBar {
+  display: flex;
+  justify-content: space-between;
+  padding: 200px;
+  color: red;
+}
+
+@theme {
+  --font-grench: "Grechen Fuemen", sans-serif;
+}
