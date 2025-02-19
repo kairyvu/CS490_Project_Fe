@@ -5,6 +5,9 @@ export interface Film {
   rental_count: number;
 }
 export interface FilmDetails {
+  title: string;
+  category: string;
+  rental_count: number;
   description: string;
   release_year: number;
   rental_rate: number;

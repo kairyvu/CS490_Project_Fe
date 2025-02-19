@@ -1,15 +1,9 @@
 import FilmAlt from "../../assets/film_alt.svg";
 import { Film, FilmDetails } from "../../types";
 import { useState, useEffect } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import axios from "axios";
+import FilmDialog from "./FilmDialog";
 
 const FilmFeed = ({ film_id, title, category, rental_count }: Film) => {
   const [filmDetails, setFilmDetails] = useState<FilmDetails | null>(null);
@@ -45,48 +39,7 @@ const FilmFeed = ({ film_id, title, category, rental_count }: Film) => {
           </div>
         </div>
       </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>
-            <div className="text-sm py-3">
-              <div className="font-semibold py-1">
-                Category: <span className="font-normal">{category}</span>
-              </div>
-              <div className="font-semibold py-1">
-                Rental Count:{" "}
-                <span className="font-normal"> {rental_count}</span>
-              </div>
-              <div className="font-semibold py-1">
-                Description:{" "}
-                <span className="font-normal">{filmDetails?.description}</span>
-              </div>
-              <div className="font-semibold py-1">
-                Length:{" "}
-                <span className="font-normal">{filmDetails?.length} mins</span>
-              </div>
-              <div className="font-semibold py-1">
-                Rating:{" "}
-                <span className="font-normal">{filmDetails?.rating}</span>
-              </div>
-              <div className="font-semibold py-1">
-                Special Features:{" "}
-                <span className="font-normal">
-                  {filmDetails?.special_features}
-                </span>
-              </div>
-              <div className="font-semibold py-1">
-                Release Year:{" "}
-                <span className="font-normal">{filmDetails?.release_year}</span>
-              </div>
-              <div className="font-semibold py-1">
-                Rental Rate:{" "}
-                <span className="font-normal">{filmDetails?.rental_rate}</span>
-              </div>
-            </div>
-          </DialogDescription>
-        </DialogHeader>
-      </DialogContent>
+      {filmDetails ? <FilmDialog {...filmDetails} /> : null}
     </Dialog>
   );
 };
