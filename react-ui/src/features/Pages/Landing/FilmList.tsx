@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import FilmFeed from "../../Modules/FilmFeed.tsx";
 import axios from "axios";
-import { FilmFeedProps } from "../../../types.ts";
+import { Film } from "../../../types.ts";
 
 const FilmList = () => {
-  const [films, setFilms] = useState<FilmFeedProps[]>([]);
+  const [films, setFilms] = useState<Film[] | null>([]);
 
   useEffect(() => {
     axios
@@ -18,7 +18,7 @@ const FilmList = () => {
   }, []);
   return (
     <div className="flex justify-around">
-      {films.map((film, id) => (
+      {films?.map((film, id) => (
         <FilmFeed
           key={id}
           film_id={film.film_id}

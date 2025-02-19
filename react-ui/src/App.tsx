@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Landing from "./Components/Pages/Landing/Landing.tsx";
-import FilmList from "./Components/Pages/Landing/FilmList.tsx";
-import CustomerList from "./Components/Pages/CustomerList.tsx";
+import Landing from "./features/Pages/Landing/Landing.tsx";
+import FilmList from "./features/Pages/Landing/FilmList.tsx";
 
 const App = () => {
   return (
@@ -10,7 +9,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/films" element={<FilmList />} />
-          <Route path="/customers" element={<CustomerList />} />
+          <Route path="/customers" element={<div></div>} />
         </Routes>
       </Router>
     </div>

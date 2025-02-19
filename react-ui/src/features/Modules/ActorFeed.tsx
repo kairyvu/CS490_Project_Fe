@@ -12,7 +12,9 @@ const ActorFeed = ({ first_name, last_name, movie_count }: ActorFeedProps) => {
           {first_name.toUpperCase() + " " + last_name.toUpperCase()}
         </div>
         <div className="text-sm py-2">
-          <div className="font-semibold">Movies: {movie_count}</div>
+          <div className="font-semibold">
+            Movies: <span className="font-normal"> {movie_count}</span>
+          </div>
         </div>
       </div>
     </div>
