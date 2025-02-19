@@ -2,7 +2,7 @@ import NavBar from "../../Modules/NavBar";
 import FilmList from "./FilmList";
 import ActorList from "./ActorList";
 
-const Landing = () => {
+const LandingPage = () => {
   return (
     <div className="bg-linear-to-b from-gray-100 to-blue-300 h-ful">
       <NavBar />
@@ -22,4 +22,4 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+export default LandingPage;

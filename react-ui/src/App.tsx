@@ -1,14 +1,14 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Landing from "./features/Pages/Landing/Landing.tsx";
-import FilmList from "./features/Pages/Landing/FilmList.tsx";
+import LandingPage from "./features/Pages/Landing/LandingPage.tsx";
+import FilmPage from "@/features/Pages/Film/FilmPage.tsx";
 
 const App = () => {
   return (
     <div>
       <Router>
         <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/films" element={<FilmList />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/films" element={<FilmPage />} />
           <Route path="/customers" element={<div></div>} />
         </Routes>
       </Router>
