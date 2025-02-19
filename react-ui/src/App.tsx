@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Landing from "./Components/Pages/Landing.tsx";
-import FilmList from "./Components/Pages/FilmList.tsx";
+import Landing from "./Components/Pages/Landing/Landing.tsx";
+import FilmList from "./Components/Pages/Landing/FilmList.tsx";
 import CustomerList from "./Components/Pages/CustomerList.tsx";
 
 const App = () => {

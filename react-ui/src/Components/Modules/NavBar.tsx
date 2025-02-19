@@ -7,7 +7,7 @@ const NavBar = () => {
     navigate(route);
   };
   return (
-    <nav className=" flex justify-between pl-8 h-12 bg-linear-to-r from-blue-600 to-yellow-400">
+    <nav className="flex justify-between pl-8 h-12 bg-linear-to-r from-black to-blue-300 font-monserrat">
       <div
         className="flex items-center gap-6 hover:cursor-pointer"
         onClick={() => handleClick("/")}
