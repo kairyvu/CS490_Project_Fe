@@ -4,9 +4,9 @@ import ActorList from "./ActorList";
 
 const LandingPage = () => {
   return (
-    <div className="bg-linear-to-b from-gray-100 to-blue-300 h-ful">
+    <div className="bg-linear-to-b from-gray-100 to-blue-300">
       <NavBar />
-      <h1 className="font-monserrat text-center text-5xl font-bold pt-10">
+      <h1 className="font-monserrat text-center text-5xl font-bold pt-20">
         Top Films
       </h1>
       <div className="h-[50svh] flex flex-col justify-center ">
