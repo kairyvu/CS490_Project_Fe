@@ -21,3 +21,13 @@ export interface Actor {
   last_name: string;
   movie_count: number;
 }
+
+export interface Customer {
+  customer_id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  address: string;
+  active: number;
+  create_date: string;
+}
