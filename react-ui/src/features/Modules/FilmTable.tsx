@@ -87,9 +87,9 @@ const FilmTable = () => {
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
-              className={
+              className={`${
                 startIndex === 0 ? "pointer-events-none opacity-50" : undefined
-              }
+              } cursor-pointer`}
               onClick={() => {
                 setStartIndex(startIndex - rowsPerPage);
                 setEndIndex(endIndex - rowsPerPage);
@@ -98,11 +98,11 @@ const FilmTable = () => {
           </PaginationItem>
           <PaginationItem>
             <PaginationNext
-              className={
+              className={`${
                 endIndex >= totalFilms
                   ? "pointer-events-none opacity-50"
                   : undefined
-              }
+              } cursor-pointer`}
               onClick={() => {
                 setStartIndex(startIndex + rowsPerPage);
                 setEndIndex(endIndex + rowsPerPage);

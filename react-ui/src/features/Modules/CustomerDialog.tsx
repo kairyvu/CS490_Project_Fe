@@ -6,6 +6,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import formatDate from "@/utils/timeConvert";
+import { Button } from "@/components/ui/button";
+import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
+import CustomerRental from "./CustomerRental";
 
 const CustomerDialog = (props: Customer) => {
   return (
@@ -36,6 +39,12 @@ const CustomerDialog = (props: Customer) => {
           </div>
         </DialogDescription>
       </DialogHeader>
+      <Drawer>
+        <DrawerTrigger asChild>
+          <Button>Rental History</Button>
+        </DrawerTrigger>
+        <CustomerRental customer_id={props?.customer_id} />
+      </Drawer>
     </DialogContent>
   );
 };
