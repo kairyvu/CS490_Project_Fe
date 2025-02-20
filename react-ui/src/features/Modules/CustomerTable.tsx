@@ -76,9 +76,9 @@ const CustomerTable = () => {
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
-              className={
+              className={`${
                 startIndex === 0 ? "pointer-events-none opacity-50" : undefined
-              }
+              } cursor-pointer`}
               onClick={() => {
                 setStartIndex(startIndex - rowsPerPage);
                 setEndIndex(endIndex - rowsPerPage);
@@ -87,11 +87,11 @@ const CustomerTable = () => {
           </PaginationItem>
           <PaginationItem>
             <PaginationNext
-              className={
+              className={`${
                 endIndex >= totalCustomers
                   ? "pointer-events-none opacity-50"
                   : undefined
-              }
+              } cursor-pointer`}
               onClick={() => {
                 setStartIndex(startIndex + rowsPerPage);
                 setEndIndex(endIndex + rowsPerPage);
