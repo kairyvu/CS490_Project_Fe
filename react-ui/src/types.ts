@@ -31,3 +31,13 @@ export interface Customer {
   active: number;
   create_date: string;
 }
+
+export interface Rental {
+  customer_id: number;
+  first_name: string;
+  last_name: string;
+  film_title: string;
+  rental_date: string;
+  return_date: string;
+  rental_status: string;
+}
