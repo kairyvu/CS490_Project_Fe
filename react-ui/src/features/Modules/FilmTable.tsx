@@ -13,10 +13,21 @@ import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import FilmDialog from "./FilmDialog";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 const FilmTable = () => {
+  const rowsPerPage = 20;
   const [films, setFilms] = useState<Film[] | null>([]);
   const [selectedFilm, setSelectedFilm] = useState<FilmDetails | null>(null);
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(rowsPerPage);
+  const totalFilms = films ? films.length : 0;
 
   useEffect(() => {
     axios
@@ -42,7 +53,7 @@ const FilmTable = () => {
   };
 
   return (
-    <div className="w-[50vw] m-auto pt-15 ">
+    <div className="flex flex-col h-screen justify-between w-[50vw] m-auto pt-15">
       <Table>
         <TableCaption></TableCaption>
         <TableHeader>
@@ -54,11 +65,10 @@ const FilmTable = () => {
         </TableHeader>
         <TableBody>
           {films
-            ? films.map((film, id) => (
-                <Dialog>
+            ? films.slice(startIndex, endIndex).map((film, id) => (
+                <Dialog key={id}>
                   <DialogTrigger asChild>
                     <TableRow
-                      key={id}
                       className="cursor-pointer"
                       onClick={() => fetchFilmDetails(film.film_id)}
                     >
@@ -73,6 +83,34 @@ const FilmTable = () => {
             : null}
         </TableBody>
       </Table>
+      <Pagination>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious
+              className={
+                startIndex === 0 ? "pointer-events-none opacity-50" : undefined
+              }
+              onClick={() => {
+                setStartIndex(startIndex - rowsPerPage);
+                setEndIndex(endIndex - rowsPerPage);
+              }}
+            />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationNext
+              className={
+                endIndex >= totalFilms
+                  ? "pointer-events-none opacity-50"
+                  : undefined
+              }
+              onClick={() => {
+                setStartIndex(startIndex + rowsPerPage);
+                setEndIndex(endIndex + rowsPerPage);
+              }}
+            />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
     </div>
   );
 };
