@@ -1,9 +1,9 @@
 import FilmAlt from "../../assets/film_alt.svg";
 import { Film, FilmDetails } from "../../types";
 import { useState, useEffect } from "react";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import axios from "axios";
 import FilmDialog from "./FilmDialog";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
 const FilmFeed = ({ film_id, title, category, rental_count }: Film) => {
   const [filmDetails, setFilmDetails] = useState<FilmDetails | null>(null);

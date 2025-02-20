@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import ActorFeed from "../../Modules/ActorFeed.tsx";
 import axios from "axios";
-import { ActorFeedProps } from "../../../types.ts";
+import { Actor } from "../../../types.ts";
 
 const ActorList = () => {
-  const [actors, setActors] = useState<ActorFeedProps[]>([]);
+  const [actors, setActors] = useState<Actor[]>([]);
 
   useEffect(() => {
     axios
