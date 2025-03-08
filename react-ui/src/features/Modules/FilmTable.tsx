@@ -11,7 +11,7 @@ import {
 import { Film, FilmDetails } from "@/types";
 import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import FilmDialog from "./FilmDialog";
 import {
   Pagination,
@@ -21,13 +21,17 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-const FilmTable = () => {
+interface FilmTableProps {
+  searchBy: string;
+  searchValue: string;
+}
+
+const FilmTable = ({ searchBy, searchValue }: FilmTableProps) => {
   const rowsPerPage = 20;
   const [films, setFilms] = useState<Film[] | null>([]);
   const [selectedFilm, setSelectedFilm] = useState<FilmDetails | null>(null);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(rowsPerPage);
-  const totalFilms = films ? films.length : 0;
 
   useEffect(() => {
     axios
@@ -39,6 +43,22 @@ const FilmTable = () => {
         console.log(error);
       });
   }, []);
+
+  const filteredFilms = useMemo(() => {
+    if (!films) return [];
+    return films.filter((film) => {
+      if (!searchValue.trim()) return true;
+
+      if (searchBy === "Title") {
+        return film.title.toLowerCase().includes(searchValue.toLowerCase());
+      } else if (searchBy === "Actor") {
+        return film.actors.toLowerCase().includes(searchValue.toLowerCase());
+      } else {
+        return film.category.toLowerCase().includes(searchValue.toLowerCase());
+      }
+    });
+  }, [films, searchValue, searchBy]);
+  const totalFilms = filteredFilms ? filteredFilms.length : 0;
 
   const fetchFilmDetails = async (film_id: number) => {
     setSelectedFilm(null);
@@ -53,7 +73,7 @@ const FilmTable = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen justify-between w-[50vw] m-auto pt-15">
+    <div className="flex flex-col h-[90vh] justify-between w-[50vw] m-auto">
       <Table>
         <TableCaption></TableCaption>
         <TableHeader>
@@ -64,8 +84,8 @@ const FilmTable = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {films
-            ? films.slice(startIndex, endIndex).map((film, id) => (
+          {filteredFilms
+            ? filteredFilms.slice(startIndex, endIndex).map((film, id) => (
                 <Dialog key={id}>
                   <DialogTrigger asChild>
                     <TableRow

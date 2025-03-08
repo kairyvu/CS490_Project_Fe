@@ -3,6 +3,7 @@ export interface Film {
   title: string;
   category: string;
   rental_count: number;
+  actors: string;
 }
 export interface FilmDetails {
   title: string;
@@ -14,6 +15,7 @@ export interface FilmDetails {
   length: number;
   rating: string;
   special_features: string;
+  actors: string;
 }
 export interface Actor {
   actor_id: number;

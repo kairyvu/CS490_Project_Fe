@@ -17,11 +17,11 @@ const FilmDialog = (props: FilmDetails) => {
               Category: <span className="font-normal">{props?.category}</span>
             </div>
             <div className="font-semibold py-1">
-              Rental Count:
+              Rental Count:{" "}
               <span className="font-normal"> {props?.rental_count}</span>
             </div>
             <div className="font-semibold py-1">
-              Description:
+              Description:{" "}
               <span className="font-normal">{props?.description}</span>
             </div>
             <div className="font-semibold py-1">
@@ -31,16 +31,19 @@ const FilmDialog = (props: FilmDetails) => {
               Rating: <span className="font-normal">{props?.rating}</span>
             </div>
             <div className="font-semibold py-1">
-              Special Features:
+              Special Features:{" "}
               <span className="font-normal">{props?.special_features}</span>
             </div>
             <div className="font-semibold py-1">
-              Release Year:
+              Release Year:{" "}
               <span className="font-normal">{props?.release_year}</span>
             </div>
             <div className="font-semibold py-1">
-              Rental Rate:
+              Rental Rate:{" "}
               <span className="font-normal">{props?.rental_rate}</span>
+            </div>
+            <div className="font-semibold py-1">
+              Actors: <span className="font-normal">{props?.actors}</span>
             </div>
           </div>
         </DialogDescription>
