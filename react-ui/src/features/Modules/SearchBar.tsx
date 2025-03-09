@@ -12,7 +12,7 @@ const SearchBar = ({ searchValue, setSearchValue }: Props) => {
       <div className="w-4/5 rounded-md">
         <input
           name="search-bar"
-          className="grow m-2 py-[2px] pl-[6px] pr-2 bg-inherit outline-none font-semibold text-slate-500"
+          className="grow m-2 pl-[6px] w-full pr-2 bg-inherit outline-none font-semibold text-slate-500"
           value={searchValue}
           onChange={({ target }) => setSearchValue(target.value)}
           placeholder="Search..."
