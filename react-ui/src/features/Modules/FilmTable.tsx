@@ -73,7 +73,7 @@ const FilmTable = ({ searchBy, searchValue }: FilmTableProps) => {
   };
 
   return (
-    <div className="flex flex-col h-[90vh] justify-between w-[50vw] m-auto">
+    <div className="w-[50vw] m-auto flex flex-col h-[88vh]">
       <Table>
         <TableCaption></TableCaption>
         <TableHeader>
