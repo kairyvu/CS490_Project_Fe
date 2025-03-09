@@ -38,7 +38,6 @@ const CustomerRental = ({ customer_id }: CustomerRentalProps) => {
         });
     }
   }, [customer_id]);
-  console.log(rentals);
   return (
     <DrawerContent className="max-h-[70svh]">
       <div className="w-[60vw] m-auto pt-10 overflow-auto">

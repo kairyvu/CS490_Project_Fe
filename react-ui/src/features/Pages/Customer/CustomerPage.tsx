@@ -3,6 +3,10 @@ import NavBar from "@/features/Modules/NavBar";
 import SearchBar from "@/features/Modules/SearchBar";
 import SearchBarFilter from "@/features/Modules/SearchBarFilter";
 import { useState } from "react";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import EditAddCustomer from "@/features/Modules/EditAddCustomer";
 
 const CustomerPage = () => {
   const [searchValue, setSearchValue] = useState<string>("");
@@ -19,10 +23,17 @@ const CustomerPage = () => {
           setSearchBy={setSearchBy}
         />
         <SearchBar searchValue={searchValue} setSearchValue={setSearchValue} />
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button>
+              <Plus /> New
+            </Button>
+          </DialogTrigger>
+          <EditAddCustomer />
+        </Dialog>
       </div>
       <CustomerTable searchBy={searchBy} searchValue={searchValue} />
     </div>
   );
 };
-
 export default CustomerPage;

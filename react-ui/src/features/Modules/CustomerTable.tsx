@@ -95,7 +95,10 @@ const CustomerTable = ({ searchBy, searchValue }: CustomerTableProps) => {
                         </TableCell>
                       </TableRow>
                     </DialogTrigger>
-                    <CustomerDialog {...customer} />
+                    <CustomerDialog
+                      customer={customer}
+                      setCustomers={setCustomers}
+                    />
                   </Dialog>
                 ))
             : null}

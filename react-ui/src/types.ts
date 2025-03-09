@@ -30,6 +30,10 @@ export interface Customer {
   last_name: string;
   email: string;
   address: string;
+  district: string;
+  city: string;
+  country: string;
+  phone: string;
   active: number;
   create_date: string;
 }

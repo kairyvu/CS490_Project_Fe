@@ -1,53 +1,71 @@
 import { Customer } from "@/types";
 import {
+  Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import formatDate from "@/utils/timeConvert";
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
 import CustomerRental from "./CustomerRental";
+import EditAddCustomer from "./EditAddCustomer";
 
-const CustomerDialog = (props: Customer) => {
+interface CustomerDialogProps {
+  customer: Customer;
+  setCustomers: React.Dispatch<React.SetStateAction<Customer[] | null>>;
+}
+
+const CustomerDialog = ({ customer, setCustomers }: CustomerDialogProps) => {
   return (
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>{props?.first_name + " " + props?.last_name}</DialogTitle>
+        <DialogTitle>
+          {customer?.first_name + " " + customer?.last_name}
+        </DialogTitle>
         <DialogDescription>
           <div className="text-sm py-3">
             <div className="font-semibold py-1">
               Customer ID:{" "}
-              <span className="font-normal">{props?.customer_id}</span>
+              <span className="font-normal">{customer?.customer_id}</span>
             </div>
             <div className="font-semibold py-1">
-              Email: <span className="font-normal">{props?.email}</span>
+              Email: <span className="font-normal">{customer?.email}</span>
             </div>
             <div className="font-semibold py-1">
-              Address: <span className="font-normal"> {props?.address}</span>
+              Address: <span className="font-normal"> {customer?.address}</span>
             </div>
             <div className="font-semibold py-1">
               Create Date:{" "}
               <span className="font-normal">
-                {formatDate(props?.create_date)}
+                {formatDate(customer?.create_date)}
               </span>
             </div>
             <div className="font-semibold py-1">
               Active:{" "}
               <span className="font-normal">
-                {props?.active === 0 ? "No" : "Yes"}
+                {customer?.active === 0 ? "No" : "Yes"}
               </span>
             </div>
           </div>
         </DialogDescription>
       </DialogHeader>
-      <Drawer>
-        <DrawerTrigger asChild>
-          <Button>Rental History</Button>
-        </DrawerTrigger>
-        <CustomerRental customer_id={props?.customer_id} />
-      </Drawer>
+      <div className="flex justify-between items-center">
+        <Drawer>
+          <DrawerTrigger asChild>
+            <Button>Rental History</Button>
+          </DrawerTrigger>
+          <CustomerRental customer_id={customer?.customer_id} />
+        </Drawer>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button>Edit Profile</Button>
+          </DialogTrigger>
+          <EditAddCustomer customer={customer} setCustomers={setCustomers} />
+        </Dialog>
+      </div>
     </DialogContent>
   );
 };
