@@ -45,6 +45,8 @@ const FilmTable = ({ searchBy, searchValue }: FilmTableProps) => {
   }, []);
 
   const filteredFilms = useMemo(() => {
+    setStartIndex(0);
+    setEndIndex(rowsPerPage);
     if (!films) return [];
     return films.filter((film) => {
       if (!searchValue.trim()) return true;

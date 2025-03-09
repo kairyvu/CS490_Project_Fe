@@ -18,14 +18,17 @@ const CustomerDialog = (props: Customer) => {
         <DialogDescription>
           <div className="text-sm py-3">
             <div className="font-semibold py-1">
+              Customer ID:{" "}
+              <span className="font-normal">{props?.customer_id}</span>
+            </div>
+            <div className="font-semibold py-1">
               Email: <span className="font-normal">{props?.email}</span>
             </div>
             <div className="font-semibold py-1">
-              Address:
-              <span className="font-normal"> {props?.address}</span>
+              Address: <span className="font-normal"> {props?.address}</span>
             </div>
             <div className="font-semibold py-1">
-              Create Date:
+              Create Date:{" "}
               <span className="font-normal">
                 {formatDate(props?.create_date)}
               </span>
