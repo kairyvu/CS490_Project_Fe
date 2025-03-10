@@ -66,6 +66,30 @@ const EditAddCustomer = ({ customer, setCustomers }: EditAddCustomerProps) => {
           description: "Please Try Again",
         });
       }
+    } else {
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/sakila_db/api/create-customer/",
+          customerData
+        );
+        console.log(response.data.message);
+        setCustomers((prevCustomers) => {
+          const customersList = prevCustomers || [];
+          return customersList.map((cust) =>
+            cust.customer_id === customerData.customer_id
+              ? { ...cust, ...customerData }
+              : cust
+          );
+        });
+        toast("Customer Added Successfully", {
+          description: "New customer has been added",
+        });
+      } catch (error) {
+        console.error("Error Adding Customer: ", error);
+        toast("Add Failed", {
+          description: "Please Try Again",
+        });
+      }
     }
   };
   return (
