@@ -12,6 +12,8 @@ import { Button } from "@/components/ui/button";
 import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
 import CustomerRental from "./CustomerRental";
 import EditAddCustomer from "./EditAddCustomer";
+import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import DeleteCustomer from "./DeleteCustomer";
 
 interface CustomerDialogProps {
   customer: Customer;
@@ -40,7 +42,7 @@ const CustomerDialog = ({ customer, setCustomers }: CustomerDialogProps) => {
             <div className="font-semibold py-1">
               Create Date:{" "}
               <span className="font-normal">
-                {formatDate(customer?.create_date)}
+                {formatDate(customer?.create_date ?? "")}
               </span>
             </div>
             <div className="font-semibold py-1">
@@ -59,12 +61,20 @@ const CustomerDialog = ({ customer, setCustomers }: CustomerDialogProps) => {
           </DrawerTrigger>
           <CustomerRental customer_id={customer?.customer_id} />
         </Drawer>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button>Edit Profile</Button>
-          </DialogTrigger>
-          <EditAddCustomer customer={customer} setCustomers={setCustomers} />
-        </Dialog>
+        <div className="space-x-4">
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="destructive">Delete</Button>
+            </AlertDialogTrigger>
+            <DeleteCustomer customer={customer} setCustomers={setCustomers} />
+          </AlertDialog>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button>Edit Profile</Button>
+            </DialogTrigger>
+            <EditAddCustomer customer={customer} setCustomers={setCustomers} />
+          </Dialog>
+        </div>
       </div>
     </DialogContent>
   );

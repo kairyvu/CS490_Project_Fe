@@ -34,8 +34,8 @@ export interface Customer {
   city: string;
   country: string;
   phone: string;
-  active: number;
-  create_date: string;
+  active?: number;
+  create_date?: string;
 }
 
 export interface Rental {

@@ -122,6 +122,7 @@ const CustomerTable = ({ searchBy, searchValue }: CustomerTableProps) => {
           <PaginationContent>
             <PaginationItem>
               <PaginationPrevious
+                size="default"
                 className={`${
                   startIndex === 0
                     ? "pointer-events-none opacity-50"
@@ -135,6 +136,7 @@ const CustomerTable = ({ searchBy, searchValue }: CustomerTableProps) => {
             </PaginationItem>
             <PaginationItem>
               <PaginationNext
+                size="default"
                 className={`${
                   endIndex >= totalCustomers
                     ? "pointer-events-none opacity-50"

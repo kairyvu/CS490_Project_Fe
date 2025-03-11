@@ -40,6 +40,17 @@ const EditAddCustomer = ({ customer, setCustomers }: EditAddCustomerProps) => {
     });
   };
 
+  const fetchCustomers = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8000/sakila_db/api/customers/"
+      );
+      setCustomers(response.data);
+    } catch (error) {
+      console.error("Error fetching customers:", error);
+    }
+  };
+
   const handleSubmit = async () => {
     if (isEditMode) {
       try {
@@ -52,9 +63,7 @@ const EditAddCustomer = ({ customer, setCustomers }: EditAddCustomerProps) => {
           const customersList = prevCustomers || [];
 
           return customersList.map((cust) =>
-            cust.customer_id === customerData.customer_id
-              ? { ...cust, ...customerData }
-              : cust
+            cust.customer_id === customerData.customer_id ? customerData : cust
           );
         });
         toast("Customer Updated Successfully", {
@@ -73,23 +82,34 @@ const EditAddCustomer = ({ customer, setCustomers }: EditAddCustomerProps) => {
           customerData
         );
         console.log(response.data.message);
-        setCustomers((prevCustomers) => {
-          const customersList = prevCustomers || [];
-          return customersList.map((cust) =>
-            cust.customer_id === customerData.customer_id
-              ? { ...cust, ...customerData }
-              : cust
-          );
-        });
+        fetchCustomers();
         toast("Customer Added Successfully", {
           description: "New customer has been added",
         });
       } catch (error) {
         console.error("Error Adding Customer: ", error);
+
+        let errorMessage = "An unexpected error occurred.";
+        if (axios.isAxiosError(error) && error.response?.data?.message) {
+          errorMessage = error.response.data.message;
+        } else if (error instanceof Error) {
+          errorMessage = error.message;
+        }
         toast("Add Failed", {
-          description: "Please Try Again",
+          description: errorMessage,
         });
       }
+      setCustomerData({
+        customer_id: 0,
+        first_name: "",
+        last_name: "",
+        email: "",
+        address: "",
+        district: "",
+        city: "",
+        country: "",
+        phone: "",
+      });
     }
   };
   return (

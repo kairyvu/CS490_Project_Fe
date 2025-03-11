@@ -3,7 +3,6 @@ import logo from "../../assets/search-logo.svg";
 interface Props {
   searchValue: string;
   setSearchValue: React.Dispatch<React.SetStateAction<string>>;
-  options?: string[];
 }
 
 const SearchBar = ({ searchValue, setSearchValue }: Props) => {

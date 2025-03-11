@@ -109,6 +109,7 @@ const FilmTable = ({ searchBy, searchValue }: FilmTableProps) => {
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
+              size="default"
               className={`${
                 startIndex === 0 ? "pointer-events-none opacity-50" : undefined
               } cursor-pointer`}
@@ -120,6 +121,7 @@ const FilmTable = ({ searchBy, searchValue }: FilmTableProps) => {
           </PaginationItem>
           <PaginationItem>
             <PaginationNext
+              size="default"
               className={`${
                 endIndex >= totalFilms
                   ? "pointer-events-none opacity-50"
