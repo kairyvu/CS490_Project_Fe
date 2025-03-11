@@ -17,6 +17,17 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import timeConvert from "@/utils/timeConvert";
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import ReturnRental from "./ReturnRental";
 
 interface CustomerRentalProps {
   customer_id: number;
@@ -49,6 +60,7 @@ const CustomerRental = ({ customer_id }: CustomerRentalProps) => {
               <TableHead>Rental Date</TableHead>
               <TableHead>Return Date</TableHead>
               <TableHead>Status</TableHead>
+              <TableHead>Return</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -63,6 +75,32 @@ const CustomerRental = ({ customer_id }: CustomerRentalProps) => {
                         : null}
                     </TableCell>
                     <TableCell>{rental.rental_status}</TableCell>
+                    <TableCell>
+                      {rental.rental_status === "Currently Rented" ? (
+                        <AlertDialog>
+                          <AlertDialogTrigger>
+                            <Button>Return</Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                            </AlertDialogHeader>
+                            <AlertDialogDescription>
+                              This action cannot be undone. This will return the
+                              film to the store.
+                            </AlertDialogDescription>
+                            <AlertDialogFooter>
+                              <ReturnRental
+                                film_id={rental.film_id}
+                                customer_id={customer_id}
+                                setRentals={setRentals}
+                              />
+                              <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      ) : null}
+                    </TableCell>
                   </TableRow>
                 ))
               : null}

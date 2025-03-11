@@ -97,7 +97,7 @@ const FilmDialog = (props: FilmDetails) => {
           }
         />
         <Button type="submit" onClick={handleSubmit}>
-          Save changes
+          Rent
         </Button>
       </DialogFooter>
     </DialogContent>
