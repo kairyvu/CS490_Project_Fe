@@ -30,6 +30,7 @@ const ReturnRental = ({
         "http://localhost:8000/sakila_db/api/return-film/",
         { film_id, customer_id }
       );
+      console.log(response.data.message);
       fetchRentals();
       toast("Returned Film Successfully", {
         description: "Customer has returned the film",
