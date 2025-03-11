@@ -1,7 +1,6 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -11,7 +10,7 @@ import {
 import { Film, FilmDetails } from "@/types";
 import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import FilmDialog from "./FilmDialog";
 import {
   Pagination,
@@ -21,13 +20,17 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-const FilmTable = () => {
+interface FilmTableProps {
+  searchBy: string;
+  searchValue: string;
+}
+
+const FilmTable = ({ searchBy, searchValue }: FilmTableProps) => {
   const rowsPerPage = 20;
   const [films, setFilms] = useState<Film[] | null>([]);
   const [selectedFilm, setSelectedFilm] = useState<FilmDetails | null>(null);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(rowsPerPage);
-  const totalFilms = films ? films.length : 0;
 
   useEffect(() => {
     axios
@@ -39,6 +42,24 @@ const FilmTable = () => {
         console.log(error);
       });
   }, []);
+
+  const filteredFilms = useMemo(() => {
+    setStartIndex(0);
+    setEndIndex(rowsPerPage);
+    if (!films) return [];
+    return films.filter((film) => {
+      if (!searchValue.trim()) return true;
+
+      if (searchBy === "Title") {
+        return film.title.toLowerCase().includes(searchValue.toLowerCase());
+      } else if (searchBy === "Actor") {
+        return film.actors.toLowerCase().includes(searchValue.toLowerCase());
+      } else {
+        return film.category.toLowerCase().includes(searchValue.toLowerCase());
+      }
+    });
+  }, [films, searchValue, searchBy]);
+  const totalFilms = filteredFilms ? filteredFilms.length : 0;
 
   const fetchFilmDetails = async (film_id: number) => {
     setSelectedFilm(null);
@@ -53,64 +74,69 @@ const FilmTable = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen justify-between w-[50vw] m-auto pt-15">
-      <Table>
-        <TableCaption></TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Title</TableHead>
-            <TableHead>Category</TableHead>
-            <TableHead>Rental Count</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {films
-            ? films.slice(startIndex, endIndex).map((film, id) => (
-                <Dialog key={id}>
-                  <DialogTrigger asChild>
-                    <TableRow
-                      className="cursor-pointer"
-                      onClick={() => fetchFilmDetails(film.film_id)}
-                    >
-                      <TableCell>{film.title}</TableCell>
-                      <TableCell>{film.category}</TableCell>
-                      <TableCell>{film.rental_count}</TableCell>
-                    </TableRow>
-                  </DialogTrigger>
-                  {selectedFilm ? <FilmDialog {...selectedFilm} /> : null}
-                </Dialog>
-              ))
-            : null}
-        </TableBody>
-      </Table>
-      <Pagination>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious
-              className={`${
-                startIndex === 0 ? "pointer-events-none opacity-50" : undefined
-              } cursor-pointer`}
-              onClick={() => {
-                setStartIndex(startIndex - rowsPerPage);
-                setEndIndex(endIndex - rowsPerPage);
-              }}
-            />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationNext
-              className={`${
-                endIndex >= totalFilms
-                  ? "pointer-events-none opacity-50"
-                  : undefined
-              } cursor-pointer`}
-              onClick={() => {
-                setStartIndex(startIndex + rowsPerPage);
-                setEndIndex(endIndex + rowsPerPage);
-              }}
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+    <div className="w-[50vw] m-auto flex flex-col">
+      <div className="flex flex-col justify-between h-[86dvh]">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Title</TableHead>
+              <TableHead>Category</TableHead>
+              <TableHead>Rental Count</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {filteredFilms
+              ? filteredFilms.slice(startIndex, endIndex).map((film, id) => (
+                  <Dialog key={id}>
+                    <DialogTrigger asChild>
+                      <TableRow
+                        className="cursor-pointer"
+                        onClick={() => fetchFilmDetails(film.film_id)}
+                      >
+                        <TableCell>{film.title}</TableCell>
+                        <TableCell>{film.category}</TableCell>
+                        <TableCell>{film.rental_count}</TableCell>
+                      </TableRow>
+                    </DialogTrigger>
+                    {selectedFilm ? <FilmDialog {...selectedFilm} /> : null}
+                  </Dialog>
+                ))
+              : null}
+          </TableBody>
+        </Table>
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                size="default"
+                className={`${
+                  startIndex === 0
+                    ? "pointer-events-none opacity-50"
+                    : undefined
+                } cursor-pointer`}
+                onClick={() => {
+                  setStartIndex(startIndex - rowsPerPage);
+                  setEndIndex(endIndex - rowsPerPage);
+                }}
+              />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationNext
+                size="default"
+                className={`${
+                  endIndex >= totalFilms
+                    ? "pointer-events-none opacity-50"
+                    : undefined
+                } cursor-pointer`}
+                onClick={() => {
+                  setStartIndex(startIndex + rowsPerPage);
+                  setEndIndex(endIndex + rowsPerPage);
+                }}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      </div>
     </div>
   );
 };
