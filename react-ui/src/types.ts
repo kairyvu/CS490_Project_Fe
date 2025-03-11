@@ -6,6 +6,7 @@ export interface Film {
   actors: string;
 }
 export interface FilmDetails {
+  film_id: number;
   title: string;
   category: string;
   rental_count: number;

@@ -10,7 +10,7 @@ const FilmPage = () => {
   const [searchBy, setSearchBy] = useState<string>(options[0]);
 
   return (
-    <div className="bg-linear-to-b from-gray-100 to-blue-300">
+    <div className="bg-linear-to-b from-gray-100 to-blue-300 h-screen">
       <NavBar />
       <div className="flex justify-center items-center pt-15 pb-3">
         <SearchBarFilter
